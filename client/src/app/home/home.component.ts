@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { Product, Products } from '../../types';
 import { ProductComponent } from '../components/product/product.component';
@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,16 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  private router = inject(Router);
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['login']);
+  }
+
+
+
+
+
   constructor(private productsService: ProductsService) {}
 
   @ViewChild('paginator') paginator: Paginator | undefined;
